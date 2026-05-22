@@ -5,26 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brain Search</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
         body {
             background-color: #121212;
             color: white;
-            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
-        .search-container { text-align: center; }
-        h1 { font-size: 3rem; margin-bottom: 20px; color: #00adb5; }
+        .search-container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10vh;
+            transition: margin 0.3s ease;
+        }
+        .search-container.shifted {
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: #00adb5;
+            font-weight: bold;
+        }
         .search-box {
             display: flex;
             background: #1e1e1e;
             border: 2px solid #333;
             border-radius: 30px;
-            padding: 10px 20px;
-            width: 400px;
+            padding: 8px 20px;
+            width: 100%;
+            align-items: center;
+        }
+        .search-box:focus-within {
+            border-color: #00adb5;
         }
         input {
             flex: 1;
@@ -33,26 +56,114 @@
             outline: none;
             color: white;
             font-size: 1.1rem;
+            padding-right: 10px;
         }
         button {
             background: #00adb5;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 20px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #008c95;
+        }
+        .results-container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 30px;
+            display: none;
+        }
+        .result-item {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00adb5;
+        }
+        .result-item a {
+            color: #00adb5;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+        .result-item p {
+            color: #aaaaaa;
+            margin-top: 5px;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="search-container">
+    <div class="search-container" id="searchContainer">
         <h1>Brain Search</h1>
-        <div class="search-box">
-            <input type="text" placeholder="Search..." id="query">
-            <button onclick="alert('Searching for: ' + document.getElementById('query').value)">Search</button>
-        </div>
+        <form onsubmit="runSearch(event)">
+            <div class="search-box">
+                <input type="text" placeholder="Try searching 'snake', 'google', or 'github'..." id="query" autocomplete="off" required>
+                <button type="submit">Search</button>
+            </div>
+        </form>
     </div>
+
+    <div class="results-container" id="resultsContainer">
+        <div id="searchResults"></div>
+    </div>
+
+    <script>
+        // Internal Search Database
+        const mockWebsites = [
+            { title: "Neon Snake Game", url: "https://sandy2701.github.io/neon-snake/mobile.html", description: "Play the ultimate neon retro snake game built with smooth mobile swipe actions and glowing graphics." },
+            { title: "GitHub - Sandy2701 Profile", url: "https://github.com/Sandy2701", description: "Explore open-source repositories, code assets, and projects created by Sandy2701 on GitHub." },
+            { title: "Google", url: "https://www.google.com", description: "Search the world's information, including webpages, images, videos and more." },
+            { title: "YouTube", url: "https://www.youtube.com", description: "Watch videos, listen to trending music, stream live gaming, and upload your own video content." }
+        ];
+
+        function runSearch(event) {
+            event.preventDefault();
+            const keyword = document.getElementById('query').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('searchResults');
+            const container = document.getElementById('resultsContainer');
+            const searchContainer = document.getElementById('searchContainer');
+
+            resultsDiv.innerHTML = ''; // Clear old results
+
+            // Find matching results
+            const matches = mockWebsites.filter(item => 
+                item.title.toLowerCase().includes(keyword) || 
+                item.description.toLowerCase().includes(keyword)
+            );
+
+            // Shift search bar to the top cleanly
+            searchContainer.classList.add('shifted');
+            container.style.display = 'block';
+
+            // Show results or a "no results" message
+            if (matches.length > 0) {
+                matches.forEach(item => {
+                    resultsDiv.innerHTML += `
+                        <div class="result-item">
+                            <a href="${item.url}" target="_blank">${item.title}</a>
+                            <p>${item.description}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                resultsDiv.innerHTML = `
+                    <div class="result-item">
+                        <a style="color: #ff4a4a; cursor: default;">No Results Found</a>
+                        <p>We couldn't find matches for "${keyword}". Try searching for 'snake', 'github', or 'google'.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
 
 </body>
 </html>
