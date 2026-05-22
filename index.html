@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Brain Search - Kali Edition</title>
     <style>
         * {
@@ -110,18 +113,47 @@
     <div class="search-container">
         <h1>BRAIN_SEARCH //: KALI_EDITION</h1>
         
-        <form class="search-form" id="searchForm">
+        <form class="search-form" id="searchForm" autocomplete="off" onsubmit="executePrivateSearch(event)">
             <input 
                 type="text" 
                 class="search-input" 
                 id="searchQuery" 
-                placeholder="Execute query..." 
+                placeholder="Execute encrypted query..." 
                 autofocus 
                 required
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
             >
             <button type="submit" class="search-button">SEARCH</button>
         </form>
     </div>
 
     <footer>
-        &copy;
+        &copy; 2011 - 2026 SA Traders. All Rights Reserved.
+    </footer>
+
+    <script>
+        function executePrivateSearch(e) {
+            e.preventDefault(); 
+            
+            const queryField = document.getElementById('searchQuery');
+            const query = queryField.value.trim();
+            
+            if (query !== "") {
+                // 1. Switched to DuckDuckGo HTML mode which doesn't execute heavy tracking JavaScript
+                // 2. We use window.location.replace() so this search step IS NOT saved in the browser's "Back" history.
+                const secureTarget = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+                
+                // Clear the input field completely immediately before leaving the page
+                queryField.value = "";
+                
+                // Redirect without leaving a history footprint on this specific page action
+                window.location.replace(secureTarget);
+            }
+        }
+    </script>
+
+</body>
+</html>
