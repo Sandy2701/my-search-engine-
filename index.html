@@ -21,11 +21,13 @@
             height: 100vh;
             margin: 0;
             padding: 20px;
+            position: relative;
         }
         .search-container {
             text-align: center;
             width: 100%;
             max-width: 550px;
+            margin-bottom: 60px; /* Leaves room for the footer */
         }
         h1 {
             font-size: 3.5rem;
@@ -66,6 +68,18 @@
             cursor: pointer;
             font-weight: bold;
         }
+        /* Official Ownership Footer */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            color: #666666;
+            font-size: 0.9rem;
+            width: 100%;
+            left: 0;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +94,10 @@
         </div>
     </div>
 
+    <footer>
+        This is owned and published by S A Traders. All rights reserved.
+    </footer>
+
     <script>
         function launchPrivateSearch() {
             const inputElement = document.getElementById('secureQuery');
@@ -87,18 +105,11 @@
             
             if (query === "") return;
 
-            // Secure private web portal URL
             const secureUrl = "https://html.duckduckgo.com/html/?q=" + query;
-
-            // Clear out the text box immediately so no data hangs around
             inputElement.value = "";
-
-            // Crucial: window.location.replace forces the browser to completely 
-            // wipe your search query page out of the session history ledger.
             window.location.replace(secureUrl);
         }
 
-        // Allow pressing 'Enter' key to search privately
         document.getElementById('secureQuery').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 launchPrivateSearch();
