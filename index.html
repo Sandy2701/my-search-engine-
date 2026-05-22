@@ -5,76 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brain Search - Private & Untrackable</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        body {
-            background-color: #121212;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .search-container {
-            text-align: center;
-            width: 100%;
-            max-width: 550px;
-        }
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: #00adb5;
-            font-weight: bold;
-            letter-spacing: -1px;
-        }
-        p.tagline {
-            color: #888;
-            margin-bottom: 30px;
-            font-size: 1rem;
-        }
-        .search-box {
-            display: flex;
-            background: #1e1e1e;
-            border: 2px solid #333;
-            border-radius: 30px;
-            padding: 8px 20px;
-            width: 100%;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .search-box:focus-within {
-            border-color: #00adb5;
-        }
-        input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            font-size: 1.1rem;
-            padding-right: 10px;
-        }
-        button {
-            background: #00adb5;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background: #008c95;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; }
+        .search-container { text-align: center; width: 100%; max-width: 550px; }
+        h1 { font-size: 3.5rem; margin-bottom: 10px; color: #00adb5; }
+        p.tagline { color: #888; margin-bottom: 30px; }
+        .search-box { display: flex; background: #1e1e1e; border: 2px solid #333; border-radius: 30px; padding: 8px 20px; width: 100%; align-items: center; }
+        .search-box:focus-within { border-color: #00adb5; }
+        input { flex: 1; background: transparent; border: none; outline: none; color: white; font-size: 1.1rem; padding: 5px; }
+        button { background: #00adb5; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -83,7 +22,7 @@
         <h1>Brain Search</h1>
         <p class="tagline">🔒 No tracking. No data storage. Fully Anonymous.</p>
         
-        <form action="https://html.duckduckgo.com/html/" method="GET" target="_self">
+        <form action="https://html.duckduckgo.com/html/" method="GET">
             <div class="search-box">
                 <input type="text" name="q" placeholder="Search the web untraceably..." autocomplete="off" required>
                 <button type="submit">Search</button>
