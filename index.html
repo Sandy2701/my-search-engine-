@@ -131,7 +131,7 @@
     </div>
 
     <footer>
-        &copy; 2011 - 2026 SA Traders. All Rights Reserved.
+        All Rights Reserved by SA Traders Since 2011
     </footer>
 
     <script>
@@ -140,20 +140,3 @@
             
             const queryField = document.getElementById('searchQuery');
             const query = queryField.value.trim();
-            
-            if (query !== "") {
-                // 1. Switched to DuckDuckGo HTML mode which doesn't execute heavy tracking JavaScript
-                // 2. We use window.location.replace() so this search step IS NOT saved in the browser's "Back" history.
-                const secureTarget = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
-                
-                // Clear the input field completely immediately before leaving the page
-                queryField.value = "";
-                
-                // Redirect without leaving a history footprint on this specific page action
-                window.location.replace(secureTarget);
-            }
-        }
-    </script>
-
-</body>
-</html>
