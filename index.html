@@ -3,32 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brain Search - Private & Untrackable</title>
+    <title>Brain Search - Incognito</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-        body { background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; }
-        .search-container { text-align: center; width: 100%; max-width: 550px; }
-        h1 { font-size: 3.5rem; margin-bottom: 10px; color: #00adb5; }
-        p.tagline { color: #888; margin-bottom: 30px; }
-        .search-box { display: flex; background: #1e1e1e; border: 2px solid #333; border-radius: 30px; padding: 8px 20px; width: 100%; align-items: center; }
-        .search-box:focus-within { border-color: #00adb5; }
-        input { flex: 1; background: transparent; border: none; outline: none; color: white; font-size: 1.1rem; padding: 5px; }
-        button { background: #00adb5; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .search-container {
+            text-align: center;
+            width: 100%;
+            max-width: 550px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #00adb5;
+        }
+        p.tagline {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .search-box {
+            display: flex;
+            background: #1e1e1e;
+            border: 2px solid #333;
+            border-radius: 30px;
+            padding: 8px 20px;
+            width: 100%;
+            align-items: center;
+        }
+        .search-box:focus-within {
+            border-color: #00adb5;
+        }
+        input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 1.1rem;
+            padding: 5px;
+        }
+        button {
+            background: #00adb5;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <div class="search-container">
         <h1>Brain Search</h1>
-        <p class="tagline">🔒 No tracking. No data storage. Fully Anonymous.</p>
+        <p class="tagline">🔒 100% Non-Traceable & Zero History Logged</p>
         
-        <form action="https://html.duckduckgo.com/html/" method="GET">
-            <div class="search-box">
-                <input type="text" name="q" placeholder="Search the web untraceably..." autocomplete="off" required>
-                <button type="submit">Search</button>
-            </div>
-        </form>
+        <div class="search-box">
+            <input type="text" id="secureQuery" placeholder="Search anonymously..." autocomplete="off" required>
+            <button onclick="launchPrivateSearch()">Search</button>
+        </div>
     </div>
+
+    <script>
+        function launchPrivateSearch() {
+            const inputElement = document.getElementById('secureQuery');
+            const query = encodeURIComponent(inputElement.value.trim());
+            
+            if (query === "") return;
+
+            // Secure private web portal URL
+            const secureUrl = "https://html.duckduckgo.com/html/?q=" + query;
+
+            // Clear out the text box immediately so no data hangs around
+            inputElement.value = "";
+
+            // Crucial: window.location.replace forces the browser to completely 
+            // wipe your search query page out of the session history ledger.
+            window.location.replace(secureUrl);
+        }
+
+        // Allow pressing 'Enter' key to search privately
+        document.getElementById('secureQuery').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                launchPrivateSearch();
+            }
+        });
+    </script>
 
 </body>
 </html>
